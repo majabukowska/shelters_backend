@@ -5,7 +5,7 @@ services:
     build: .
     environment:
       - DJANGO_SETTINGS_MODULE=shelters_backend.settings
-      - DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,[::1],0.0.0.0
+      - DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,[::1],0.0.0.0,respectable-sharlene-foodie-5c103fae.koyeb.app
       - PORT=8000
     volumes:
       - .:/app

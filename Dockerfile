@@ -18,6 +18,7 @@ COPY --from=builder /usr/local /usr/local
 # Kopiujemy aplikację
 COPY . .
 ENV DJANGO_SETTINGS_MODULE=shelters_backend.settings
+ENV DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,[::1],0.0.0.0,respectable-sharlene-foodie-5c103fae.koyeb.app
 
 ENV PORT=8000
 
