@@ -21,6 +21,6 @@ ENV DJANGO_SETTINGS_MODULE=shelters_backend.settings
 
 ENV PORT=8000
 
-EXPOSE $PORT
+EXPOSE 8000
 
-CMD ["gunicorn", "--bind", ":$PORT", "--workers", "2", "shelters_backend.wsgi"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "shelters_backend.wsgi"]
