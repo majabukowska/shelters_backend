@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Pet, Shelter
-from .serializers import PetSerializer, ShelterSerializer
+from .models import Pet, Shelter, User
+from .serializers import PetSerializer, ShelterSerializer, UserSerializer
 
 class PetViewSet(viewsets.ModelViewSet):
     queryset = Pet.objects.all()
@@ -9,3 +9,7 @@ class PetViewSet(viewsets.ModelViewSet):
 class ShelterViewSet(viewsets.ModelViewSet):
     queryset = Shelter.objects.all()
     serializer_class = ShelterSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
