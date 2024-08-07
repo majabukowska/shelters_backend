@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
+from django.db.models.signals import post_migrate
+from django.dispatch import receiver
 
 class User(AbstractUser):
     first_name = models.CharField(max_length=30, blank=True)
@@ -11,6 +13,15 @@ class User(AbstractUser):
     groups = models.ManyToManyField(Group, related_name='shelters_api_users', blank=True)
     user_permissions = models.ManyToManyField(Permission, related_name='shelters_api_users', blank=True)
 
+    @classmethod
+    def create_superuser(cls):
+        if not cls.objects.filter(username='admin').exists():
+            cls.objects.create_superuser(
+                username='admin',
+                email='admin@example.com',
+                password='adminpassword'
+            )
+            print("Superuser created.")
 
 class Pet(models.Model):
     name = models.CharField(max_length=100, default="")
@@ -30,8 +41,7 @@ class Shelter(models.Model):
     news_link = models.URLField(default="", blank=True)
     x_coordinate = models.FloatField(default=0.0)
     y_coordinate = models.FloatField(default=0.0)
-    image = models.ImageField(upload_to='pets/')
-
+    image = models.ImageField(upload_to='shelter/')
 
     def __str__(self):
         return self.name

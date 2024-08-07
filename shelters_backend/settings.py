@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '0.0.0.0', 'respectable-shar
 
 
 # Application definition
+AUTH_USER_MODEL = 'shelters_api.User'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework_simplejwt',
+    'rest_framework.authtoken',
     'shelters_api',
 ]
 

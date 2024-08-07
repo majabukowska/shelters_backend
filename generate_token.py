@@ -1,22 +1,31 @@
 import os
 import django
 
-# Ustawienie zmiennej środowiskowej dla ustawień Django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'shelters_backend.settings')
-
-# Inicjalizacja Django
 django.setup()
 
-from django.contrib.auth import get_user_model
-from rest_framework_simplejwt.tokens import RefreshToken
+from shelters_api.models import User
+from rest_framework.authtoken.models import Token
 
-User = get_user_model()
+def create_superuser_and_token():
+    username = 'admin'
+    email = 'admin@example.com'
+    password = 'adminpassword'
 
-def create_static_token():
-    user = User.objects.get(username='superuser')  # Zmień na nazwę swojego superusera
-    refresh = RefreshToken.for_user(user)
-    token = str(refresh.access_token)
-    print(f'Static Token for superuser: {token}')
+    if not User.objects.filter(username=username).exists():
+        user = User.objects.create_superuser(
+            username=username,
+            email=email,
+            password=password
+        )
+        print("Superuser created.")
+    else:
+        user = User.objects.get(username=username)
+        print("Superuser already exists.")
+
+    # Pobierz lub utwórz token dla użytkownika
+    token, created = Token.objects.get_or_create(user=user)
+    print(f'Static Token for superuser: {token.key}')
 
 if __name__ == '__main__':
-    create_static_token()
+    create_superuser_and_token()
