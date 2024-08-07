@@ -3,6 +3,9 @@ from django.db import models
 from django.db.models.signals import post_migrate
 from django.dispatch import receiver
 
+def upload_to(instance, filename):
+    return 'images/{filename}'.format(filename=filename)
+
 class User(AbstractUser):
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
@@ -30,7 +33,7 @@ class Pet(models.Model):
     is_liked = models.BooleanField(default=False)
     can_adopt = models.BooleanField(default=True)
     can_volunteer = models.BooleanField(default=True)
-    image = models.ImageField(upload_to='pets/')
+    image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
     shelter = models.ForeignKey('Shelter', on_delete=models.CASCADE, related_name='pets')
 
 class Shelter(models.Model):
@@ -41,7 +44,6 @@ class Shelter(models.Model):
     news_link = models.URLField(default="", blank=True)
     x_coordinate = models.FloatField(default=0.0)
     y_coordinate = models.FloatField(default=0.0)
-    image = models.ImageField(upload_to='shelter/')
 
     def __str__(self):
         return self.name

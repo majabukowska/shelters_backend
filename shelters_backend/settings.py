@@ -77,7 +77,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'shelters_backend.wsgi.application'
 
+# Actual directory user files go to
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
 
+# URL used to access the media
+MEDIA_URL = '/media/'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
