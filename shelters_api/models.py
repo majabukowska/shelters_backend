@@ -33,12 +33,15 @@ class Pet(models.Model):
     is_liked = models.BooleanField(default=False)
     can_adopt = models.BooleanField(default=True)
     can_volunteer = models.BooleanField(default=True)
-    image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    image_data = models.TextField(blank=True, null=True)
     shelter = models.ForeignKey('Shelter', on_delete=models.CASCADE, related_name='pets')
+
+    class Meta:
+        unique_together = ('name', 'shelter')
 
 class Shelter(models.Model):
     name = models.CharField(max_length=100, default="")
-    address = models.TextField(default="")
+    address = models.TextField(unique=True)    
     needs = models.TextField(default="")
     website_link = models.URLField(default="", blank=True)
     news_link = models.URLField(default="", blank=True)
